@@ -16,7 +16,7 @@ def db_query(query, params=()):
     conn.close()
     return result
 
-# --- MITIGACIÓN CABECERAS HTTP (Alertas OWASP ZAP) ---
+
 @app.after_request
 def agregar_cabeceras_seguridad(response):
     response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
