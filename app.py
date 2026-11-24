@@ -19,7 +19,9 @@ def db_query(query, params=()):
 # --- MITIGACIÓN CABECERAS HTTP (Alertas OWASP ZAP) ---
 @app.after_request
 def agregar_cabeceras_seguridad(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    response.headers['Cross-Origin-Embedder-Policy'] = "require-corp"
+    response.headers['Cross-Origin-Opener-Policy'] = "same-origin"
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['X-Content-Type-Options'] = 'nosniff'
     response.headers['Permissions-Policy'] = 'geolocation=(), microphone=(), camera=()'
